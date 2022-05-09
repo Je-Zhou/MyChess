@@ -1,46 +1,46 @@
-import React from "react";
-import Tile from "./Tile";
-import { Point } from "./types";
+import Square from "./Square";
 import Row from "./Row";
+import { Piece } from "../Pieces/Piece";
 
 function ChessBoard() {
   /*
   ChessBoards are represented in a 8x8 grid.
   They have a chequered design between light and dark squares
-  1a starts dark
+  The first bottom left square is dark
 
   Let's create the grid in a matrix
   
-  [[a8, b8, c8, d8, e8, f8, j8, h8],
-   [a7, b7, c7, d7, e7, f7, j7, h7],
-   [a6, b6, c6, d6, e6, f6, j6, h6],
-   [a5, b5, c5, d5, e5, f5, j5, h5],
-   [a4, b4, c4, d4, e4, f4, j4, h4],
-   [a3, b3, c3, d3, e3, f3, j3, h3],
-   [a2, b2, c2, d2, e2, f2, j2, h2],
-   [a1, b1, c1, d1, e1, f1, j1, h1]]
+  [[56, 57, 58, 59, 60, 61, 62, 63],
+   [48, 49, 50, 51, 52, 53, 54, 55],
+   [40, 41, 42, 43, 44, 45, 46, 47],
+   [32, 33, 34, 35, 36, 37, 38, 39],
+   [24, 25, 26, 27, 28, 29, 30, 31],
+   [16, 17, 18, 19, 20, 21, 22, 23],
+   [08, 09, 10, 11, 12, 13, 14, 15],
+   [00, 01, 02, 03, 04, 05, 06, 07]]
    
    To create grid we'll create a custom type to handle the x and y co-ordinates
    
    */
 
-  function generateBoard() {
+  function generateBoard(pieces: Piece[][]) {
     // Here is the empty array we will populate with Rows
     const chessBoard = [];
 
     // Iterate through the rows
-    for (let y = 8; y >= 1; y--) {
+    for (let y = 7; y >= 0; y--) {
       const row = [];
-      for (let x = 1; x <= 8; x++) {
-        const point: Point = { x, y };
-        row.push(<Tile key={x} point={point} />);
+      for (let x = 0; x <= 7; x++) {
+        const piece = pieces[y][x];
+        const square = y * 8 + x;
+        row.push(<Square key={square} square={square} piece={piece} />);
       }
       chessBoard.push(<Row key={y} row={row} />);
     }
     return chessBoard;
   }
 
-  return <div>{generateBoard()}</div>;
+  return <div>{generateBoard(Array(8).fill(Array(8)))}</div>;
 }
 
 export default ChessBoard;

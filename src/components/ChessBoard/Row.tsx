@@ -6,7 +6,6 @@ export interface RowProps {
 }
 
 function Row({ row }: RowProps) {
-  console.log(row);
   return <div className="row">{row}</div>;
 }
 
